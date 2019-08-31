@@ -13,13 +13,15 @@ class App extends React.Component {
       snareSequencer: '',
       hatSequencer: '',
       kickPattern: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
-      snarePattern: [null, null, null, null, true, null, null, null, null, null, null, null, true, null, null, null],
+      snarePattern: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
       hatPattern: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
     }
   }
 
   componentDidMount() {
     this.createKick(this.state.kickPattern);
+    this.createSnare(this.state.snarePattern);
+    this.createHat(this.state.hatPattern);
   }
 
   //create kick sequencer
@@ -45,7 +47,7 @@ class App extends React.Component {
     }
     this.setState({
       kickPattern: beats,
-      kiqSequencer: kickSeq,
+      kickSequencer: kickSeq,
     })
   }
 
@@ -56,6 +58,50 @@ class App extends React.Component {
     }, beats, '16n').start(0);
     this.setState({
       snareSequencer: snareSeq,
+    })
+  }
+
+  //change snare pattern
+  setSnare = (i) => {
+    const beats = [...this.state.snarePattern];
+    const snareSeq = this.state.snareSequencer;
+    if (beats[i] === null) {
+      beats[i] = 'C2';
+      snareSeq.add(i, 'C2')
+    } else {
+      beats[i] = null;
+      snareSeq.remove(i).add(i, null)
+    }
+    this.setState({
+      snarePattern: beats,
+      snareSequencer: snareSeq,
+    })
+  }
+
+  //create hat sequencer
+  createHat = (beats) => {
+    const hatSeq = new Tone.Sequence(function (time) {
+      hat.triggerAttackRelease('8n', time)
+    }, beats, '16n').start(0);
+    this.setState({
+      hatSequencer: hatSeq,
+    })
+  }
+
+  //change snare pattern
+  setHat = (i) => {
+    const beats = [...this.state.hatPattern];
+    const hatSeq = this.state.hatSequencer;
+    if (beats[i] === null) {
+      beats[i] = 'C2';
+      hatSeq.add(i, 'C2')
+    } else {
+      beats[i] = null;
+      hatSeq.remove(i).add(i, null)
+    }
+    this.setState({
+      hatPattern: beats,
+      hatSequencer: hatSeq,
     })
   }
 
@@ -78,6 +124,16 @@ class App extends React.Component {
           set={this.setKick}
           pattern={this.state.kickPattern}
           drum="kick"
+        />
+        <DrumTrack
+          set={this.setSnare}
+          pattern={this.state.snarePattern}
+          drum="snare"
+        />
+        <DrumTrack
+          set={this.setHat}
+          pattern={this.state.hatPattern}
+          drum="hi hat"
         />
       </div>
     );

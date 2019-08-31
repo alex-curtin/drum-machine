@@ -4,10 +4,10 @@ export default class DrumTrack extends React.Component {
   constructor(props) {
     super(props);
   }
-  render(props) {
+  render() {
     return (
       <div className="drum-track">
-        <p>{this.props.drum}</p>
+
         {this.props.pattern.map((beat, i) => (
           <div
             key={i}

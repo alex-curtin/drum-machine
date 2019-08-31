@@ -20,7 +20,8 @@ export const snare = new Tone.NoiseSynth({
     attack: 0.0001,
     decay: 0.3,
     sustain: 0,
-  }
+  },
+  volume: 5,
 }).toMaster();
 
 export const hat = new Tone.NoiseSynth({
@@ -31,5 +32,6 @@ export const hat = new Tone.NoiseSynth({
     attack: 0.001,
     decay: 0.1,
     sustain: 0,
-  }
+  },
+  volume: -12,
 }).toMaster();
