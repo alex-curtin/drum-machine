@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Tone from 'tone';
 import Controls from './components/Controls';
+import Steps from './components/Steps';
 import DrumTrack from './components/DrumTrack';
 import { kick, snare, hat } from './sounds/drums';
 
@@ -9,6 +10,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      playing: false,
       kickSequencer: '',
       snareSequencer: '',
       hatSequencer: '',
@@ -39,8 +41,8 @@ class App extends React.Component {
     const beats = [...this.state.kickPattern];
     const kickSeq = this.state.kickSequencer;
     if (beats[i] === null) {
-      beats[i] = 'C2';
-      kickSeq.add(i, 'C2')
+      beats[i] = 'C0';
+      kickSeq.add(i, 'C0')
     } else {
       beats[i] = null;
       kickSeq.remove(i).add(i, null)
@@ -66,8 +68,8 @@ class App extends React.Component {
     const beats = [...this.state.snarePattern];
     const snareSeq = this.state.snareSequencer;
     if (beats[i] === null) {
-      beats[i] = 'C2';
-      snareSeq.add(i, 'C2')
+      beats[i] = true;
+      snareSeq.add(i, true)
     } else {
       beats[i] = null;
       snareSeq.remove(i).add(i, null)
@@ -88,13 +90,13 @@ class App extends React.Component {
     })
   }
 
-  //change snare pattern
+  //change hat pattern
   setHat = (i) => {
     const beats = [...this.state.hatPattern];
     const hatSeq = this.state.hatSequencer;
     if (beats[i] === null) {
-      beats[i] = 'C2';
-      hatSeq.add(i, 'C2')
+      beats[i] = true;
+      hatSeq.add(i, true)
     } else {
       beats[i] = null;
       hatSeq.remove(i).add(i, null)
@@ -105,20 +107,22 @@ class App extends React.Component {
     })
   }
 
-  start = () => {
-    Tone.Transport.start();
-  }
-
-  stop = () => {
-    Tone.Transport.stop();
+  toggleTransport = () => {
+    Tone.Transport.toggle();
+    this.setState(prevState => ({
+      playing: !prevState.playing
+    }))
   }
 
   render() {
     return (
       <div className="App">
         <Controls
-          start={this.start}
-          stop={this.stop}
+          playing={this.state.playing}
+          toggleTransport={this.toggleTransport}
+        />
+        <Steps
+          pattern={this.state.kickPattern}
         />
         <DrumTrack
           set={this.setKick}

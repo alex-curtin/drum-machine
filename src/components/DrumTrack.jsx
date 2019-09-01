@@ -7,13 +7,13 @@ export default class DrumTrack extends React.Component {
   render() {
     return (
       <div className="drum-track">
-
+        <div className="track-name">{this.props.drum}</div>
         {this.props.pattern.map((beat, i) => (
           <div
             key={i}
-            className={'step ' + (beat ? 'active' : 'inactive')}
+            className={'step ' + (beat ? 'active ' : 'inactive ') + this.props.drum}
             onClick={() => this.props.set(i)}
-          >{i}
+          >
           </div>
         ))}
       </div>

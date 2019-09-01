@@ -1,23 +1,70 @@
 .App {
-  text-align: center;
+  background: rgb(245,245,245);
+  background: linear-gradient(180deg, rgba(245,245,245,1) 0%, rgba(250,250,250,1) 100%);
+  height: 100vh;
+}
+
+/* CONTROLS */
+.controls {
+  padding: 5% 40%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+.control-button {
+  width: 60px;
+  height: 40px;
+  background: #2af;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #fff;
+}
+
+.control-button:hover {
+  cursor: pointer;
+}
+
+.play {
+  width: 0; 
+  height: 0; 
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-left: 30px solid white;
+  border-radius: 5px;
+  margin-left: 10px;
 }
 
 /* DRUM TRACK */
 
-.drum-track {
+.track-name {
+  width: 6%;
+  height: 30px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drum-track, .step-nums {
   display: flex;
   justify-content: center;
-  margin: 30px auto;
+  align-items: center;
+  margin: 0 auto 10px;
   width: 90%;
+}
+
+.step-nums {
+  margin: 0 auto;
 }
 
 .drum-track p {
   margin: 0;
 }
 
-.step {
-  background: lightblue;
-  border: 2px solid lightblue;
+.step, .num {
   margin: 1px;
   width: 5%;
   max-width: 30px;
@@ -29,7 +76,32 @@
   justify-content: center;
 }
 
+.num {
+  color: #555;
+  border: 2px solid transparent;
+}
+
+.kick {
+  background: #fca;
+  border: 2px solid #fca;
+}
+
+.snare {
+  background: #fa7;
+  border: 2px solid #fa7;
+}
+
+.hat {
+  background: #f85;
+  border: 2px solid #f85;
+}
+
+.step:hover {
+  cursor: pointer;
+}
+
 .active {
   background: transparent;
-  color: lightblue;
+  color: #888;
 }
+

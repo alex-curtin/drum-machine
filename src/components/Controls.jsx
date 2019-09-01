@@ -1,10 +1,13 @@
-import React from 'react'
+import React from 'react';
 
 export default function Controls(props) {
   return (
-    <div>
-      <button onClick={props.start}>start</button>
-      <button onClick={props.stop}>stop</button>
-    </div>
+    <div className="controls">
+      <div
+        className="control-button"
+        onClick={props.toggleTransport}>
+        {props.playing ? 'stop' : 'start'}
+      </div>
+    </div >
   )
 }

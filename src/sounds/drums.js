@@ -1,14 +1,35 @@
 import Tone from 'tone';
 
-export const kick = new Tone.Synth({
+const dist = new Tone.Distortion({
+  distortion: 0.3,
+  oversample: "2x",
+}).toMaster();
+
+// export const kick = new Tone.Synth({
+//   oscillator: {
+//     type: 'sine',
+//   },
+//   envelope: {
+//     attack: 0.0001,
+//     decay: 0.2,
+//     sustain: 0.3,
+//     release: 0.2
+//   },
+//   detune: 125,
+// }).toMaster();
+
+export const kick = new Tone.MembraneSynth({
+  pitchDecay: 0.05,
+  octaves: 10,
   oscillator: {
-    type: 'sine',
+    type: 'sine'
   },
   envelope: {
     attack: 0.001,
-    decay: 0.2,
-    sustain: 0.2,
-    release: 0.2
+    decay: 1,
+    sustain: 0.01,
+    release: 1.4,
+    attackCurve: 'cosine'
   }
 }).toMaster();
 
