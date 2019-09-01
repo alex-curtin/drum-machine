@@ -4,26 +4,29 @@ import Tone from 'tone';
 import Controls from './components/Controls';
 import Steps from './components/Steps';
 import DrumTrack from './components/DrumTrack';
-import { kick, snare, hat } from './sounds/drums';
+import { kick, snare, hatC, hatO } from './sounds/drums';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      bpm: 120,
       playing: false,
       kickSequencer: '',
       snareSequencer: '',
-      hatSequencer: '',
+      hatCSequencer: '',
       kickPattern: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
       snarePattern: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
-      hatPattern: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      hatCPattern: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      hatOPattern: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
     }
   }
 
   componentDidMount() {
     this.createKick(this.state.kickPattern);
     this.createSnare(this.state.snarePattern);
-    this.createHat(this.state.hatPattern);
+    this.createhatC(this.state.hatCPattern);
+    this.createhatO(this.state.hatOPattern);
   }
 
   //create kick sequencer
@@ -80,30 +83,57 @@ class App extends React.Component {
     })
   }
 
-  //create hat sequencer
-  createHat = (beats) => {
-    const hatSeq = new Tone.Sequence(function (time) {
-      hat.triggerAttackRelease('8n', time)
+  //create closed hat sequencer
+  createhatC = (beats) => {
+    const hatCSeq = new Tone.Sequence(function (time) {
+      hatC.triggerAttackRelease('8n', time)
     }, beats, '16n').start(0);
     this.setState({
-      hatSequencer: hatSeq,
+      hatCSequencer: hatCSeq,
     })
   }
 
-  //change hat pattern
-  setHat = (i) => {
-    const beats = [...this.state.hatPattern];
-    const hatSeq = this.state.hatSequencer;
+  //change closed hat pattern
+  sethatC = (i) => {
+    const beats = [...this.state.hatCPattern];
+    const hatCSeq = this.state.hatCSequencer;
     if (beats[i] === null) {
       beats[i] = true;
-      hatSeq.add(i, true)
+      hatCSeq.add(i, true)
     } else {
       beats[i] = null;
-      hatSeq.remove(i).add(i, null)
+      hatCSeq.remove(i).add(i, null)
     }
     this.setState({
-      hatPattern: beats,
-      hatSequencer: hatSeq,
+      hatCPattern: beats,
+      hatCSequencer: hatCSeq,
+    })
+  }
+
+  //create open hat sequencer
+  createhatO = (beats) => {
+    const hatOSeq = new Tone.Sequence(function (time) {
+      hatO.triggerAttackRelease('8n', time)
+    }, beats, '16n').start(0);
+    this.setState({
+      hatOSequencer: hatOSeq,
+    })
+  }
+
+  //change open hat pattern
+  sethatO = (i) => {
+    const beats = [...this.state.hatOPattern];
+    const hatOSeq = this.state.hatOSequencer;
+    if (beats[i] === null) {
+      beats[i] = true;
+      hatOSeq.add(i, true)
+    } else {
+      beats[i] = null;
+      hatOSeq.remove(i).add(i, null)
+    }
+    this.setState({
+      hatOPattern: beats,
+      hatOSequencer: hatOSeq,
     })
   }
 
@@ -114,31 +144,57 @@ class App extends React.Component {
     }))
   }
 
+  changeBpm = (e) => {
+    const bpm = e.target.value;
+    this.setState({
+      bpm: bpm,
+    })
+    Tone.Transport.bpm.value = bpm;
+  }
+
+  bpmTick = (e) => {
+    const tick = e.target.value;
+    Tone.Transport.bpm.value += parseInt(tick);
+    this.setState(prevState => ({
+      bpm: prevState.bpm + parseInt(tick),
+    }))
+  }
+
   render() {
     return (
       <div className="App">
-        <Controls
-          playing={this.state.playing}
-          toggleTransport={this.toggleTransport}
-        />
-        <Steps
-          pattern={this.state.kickPattern}
-        />
-        <DrumTrack
-          set={this.setKick}
-          pattern={this.state.kickPattern}
-          drum="kick"
-        />
-        <DrumTrack
-          set={this.setSnare}
-          pattern={this.state.snarePattern}
-          drum="snare"
-        />
-        <DrumTrack
-          set={this.setHat}
-          pattern={this.state.hatPattern}
-          drum="hi hat"
-        />
+        <div className="drum-machine">
+          <Controls
+            playing={this.state.playing}
+            toggleTransport={this.toggleTransport}
+            bpm={this.state.bpm}
+            handleBpmChange={this.changeBpm}
+            bpmTick={this.bpmTick}
+          />
+          <Steps
+            pattern={this.state.kickPattern}
+          />
+          <DrumTrack
+            set={this.setKick}
+            pattern={this.state.kickPattern}
+            drum="kick"
+          />
+          <DrumTrack
+            set={this.setSnare}
+            pattern={this.state.snarePattern}
+            drum="snare"
+          />
+          <DrumTrack
+            set={this.sethatC}
+            pattern={this.state.hatCPattern}
+            drum="closed hat"
+          />
+          <DrumTrack
+            set={this.sethatO}
+            pattern={this.state.hatOPattern}
+            drum="open hat"
+          />
+        </div>
       </div>
     );
   }
