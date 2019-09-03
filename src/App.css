@@ -11,6 +11,7 @@ html {
 .drum-machine {
   border: 2px solid black;
   width: 90%;
+  max-width: 1000px;
   margin: 10vh auto;
   padding: 5% 0;
   border-radius: 3px;
@@ -30,6 +31,7 @@ html {
 .control-button {
   width: 60px;
   height: 40px;
+  border-radius: 2px;
   background: #2af;
   display: flex;
   align-items: center;
@@ -42,15 +44,6 @@ html {
   cursor: pointer;
 }
 
-.play {
-  width: 0; 
-  height: 0; 
-  border-top: 15px solid transparent;
-  border-bottom: 15px solid transparent;
-  border-left: 30px solid white;
-  border-radius: 5px;
-  margin-left: 10px;
-}
 
 .bpm {
   display: flex;
@@ -61,6 +54,8 @@ html {
 
 .bpm p {
   margin: 0;
+  font-weight: bold;
+  color: #07f;
 }
 
 .bpm-control {
@@ -73,6 +68,7 @@ html {
   width: 30%;
   height: 20px;
   margin: 2% 5%;
+  border-radius: 3px;
 }
 
 .bpm-control button {
@@ -87,15 +83,18 @@ html {
   padding: 0 0 10%;
 }
 
+
 /* DRUM TRACK */
 
 .track-name {
-  width: 6%;
+  width: 8%;
   height: 30px;
   font-weight: bold;
+  font-size: 0.8em;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 
 .drum-track, .step-nums {
@@ -119,6 +118,7 @@ html {
   width: 5%;
   max-width: 30px;
   height: 30px;
+  border-radius: 2px;
   font-weight: bold;
   color: white;
   display: flex;
@@ -131,19 +131,39 @@ html {
   border: 2px solid transparent;
 }
 
-.kick {
-  background: #fca;
-  border: 2px solid #fca;
+.one {
+  background: #FED735;
+  border: 2px solid #FED735;
 }
 
-.snare {
-  background: #fa7;
-  border: 2px solid #fa7;
+.two {
+  background: #FEC539;
+  border: 2px solid #FEC539;
 }
 
-.hat {
-  background: #f85;
-  border: 2px solid #f85;
+.three {
+  background: #FEB23E;
+  border: 2px solid #FEB23E;
+}
+
+.four {
+  background: #FFA043;
+  border: 2px solid #FFA043;
+}
+
+.five {
+  background: #FF8D47;
+  border: 2px solid #FF8D47;
+}
+
+.six {
+  background: #FF7A4C;
+  border: 2px solid #FF7A4C;
+}
+
+.seven {
+  background: #FF6850;
+  border: 2px solid #FF6850;
 }
 
 .step:hover {

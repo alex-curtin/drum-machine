@@ -11,7 +11,7 @@ export default class DrumTrack extends React.Component {
         {this.props.pattern.map((beat, i) => (
           <div
             key={i}
-            className={'step ' + (beat ? 'active ' : 'inactive ') + this.props.drum}
+            className={'step ' + (beat ? 'active ' : 'inactive ') + this.props.order}
             onClick={() => this.props.set(i)}
           >
           </div>
