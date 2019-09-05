@@ -4,6 +4,7 @@ import Tone from 'tone';
 import Controls from './components/Controls';
 import Steps from './components/Steps';
 import DrumTrack from './components/DrumTrack';
+import Footer from './components/Footer';
 import { kick, snare, hatC, hatO, tom, crash } from './sounds/drums';
 
 class App extends React.Component {
@@ -307,6 +308,7 @@ class App extends React.Component {
             drum="crash"
             order="seven"
           />
+          <Footer />
         </div>
       </div>
     );

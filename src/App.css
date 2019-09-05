@@ -12,8 +12,8 @@ html {
   border: 2px solid black;
   width: 90%;
   max-width: 1000px;
-  margin: 10vh auto;
-  padding: 5% 0;
+  margin: 5vh auto;
+  padding: 5% 0 0;
   border-radius: 3px;
   background: #f0f0f0;
 }
@@ -38,6 +38,7 @@ html {
   justify-content: center;
   font-weight: bold;
   color: #fff;
+  margin: 0 10%;
 }
 
 .control-button:hover {
@@ -49,7 +50,7 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 50%;
+  width: 30%;
 }
 
 .bpm p {
@@ -65,7 +66,7 @@ html {
 }
 
 .bpm-control input {
-  width: 30%;
+  width: 40%;
   height: 20px;
   margin: 2% 5%;
   border-radius: 3px;
@@ -175,3 +176,12 @@ html {
   color: #888;
 }
 
+.footer {
+  padding: 4% 1% 1%;
+}
+
+.footer a {
+  font-weight: 500;
+  color: #07f;
+  text-decoration: none;
+}
